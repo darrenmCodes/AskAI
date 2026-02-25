@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
   "name": "AskAI",
-  "version": "1.0.0",
-  "description": "Ask ChatGPT, Gemini, and Claude the same question at once.",
-  "permissions": ["activeTab", "scripting", "storage"],
+  "version": "3.0.0",
+  "description": "Ask ChatGPT, Gemini, and Claude the same question at once. Get a consensus summary.",
+  "permissions": ["storage", "tabs", "windows"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -16,6 +16,9 @@
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {

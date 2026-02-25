@@ -11,15 +11,73 @@
     <h1>AskAI</h1>
     <p class="subtitle">Ask ChatGPT, Gemini &amp; Claude at once</p>
 
-    <div class="services">
-      <label><input type="checkbox" id="cb-chatgpt" checked> ChatGPT</label>
-      <label><input type="checkbox" id="cb-gemini" checked> Gemini</label>
-      <label><input type="checkbox" id="cb-claude" checked> Claude</label>
+    <!-- Ask view -->
+    <div id="ask-view">
+      <div class="services">
+        <label><input type="checkbox" id="cb-chatgpt" checked> ChatGPT</label>
+        <label><input type="checkbox" id="cb-gemini" checked> Gemini</label>
+        <label><input type="checkbox" id="cb-claude" checked> Claude</label>
+      </div>
+
+      <div class="consensus-row">
+        <label for="summary-model">Consensus model:</label>
+        <select id="summary-model">
+          <option value="none">None</option>
+          <option value="chatgpt">ChatGPT</option>
+          <option value="gemini">Gemini</option>
+          <option value="claude" selected>Claude</option>
+        </select>
+      </div>
+
+      <textarea id="question" placeholder="Type your question... (Enter to send, Shift+Enter for new line)" rows="4"></textarea>
+      <button id="ask-btn">Ask All</button>
+      <p id="status" class="status"></p>
     </div>
 
-    <textarea id="question" placeholder="Type your question..." rows="4"></textarea>
-    <button id="ask-btn">Ask All</button>
-    <p id="status" class="status"></p>
+    <!-- Results view -->
+    <div id="results-view" class="hidden">
+      <div class="progress-section">
+        <div class="progress-row" id="row-chatgpt">
+          <span class="progress-label">ChatGPT</span>
+          <button class="skip-btn hidden" id="skip-chatgpt" data-service="chatgpt">Skip</button>
+          <span class="progress-status" id="status-chatgpt">waiting...</span>
+        </div>
+        <div class="progress-row" id="row-gemini">
+          <span class="progress-label">Gemini</span>
+          <button class="skip-btn hidden" id="skip-gemini" data-service="gemini">Skip</button>
+          <span class="progress-status" id="status-gemini">waiting...</span>
+        </div>
+        <div class="progress-row" id="row-claude">
+          <span class="progress-label">Claude</span>
+          <button class="skip-btn hidden" id="skip-claude" data-service="claude">Skip</button>
+          <span class="progress-status" id="status-claude">waiting...</span>
+        </div>
+        <div class="progress-row" id="row-consensus">
+          <span class="progress-label">Consensus</span>
+          <span class="progress-status" id="status-consensus">—</span>
+        </div>
+      </div>
+
+      <div id="consensus-result" class="consensus-result hidden">
+        <div class="consensus-header">
+          <h3>Consensus Summary</h3>
+          <button id="copy-btn" class="copy-btn" title="Copy to clipboard">Copy</button>
+        </div>
+        <div id="consensus-text" class="consensus-text">—</div>
+      </div>
+
+      <div id="followup-section" class="followup-section hidden">
+        <h3>Follow-up Questions</h3>
+        <div id="followup-buttons" class="followup-buttons"></div>
+        <div class="followup-input-row">
+          <textarea id="followup-input" placeholder="Or type your own follow-up... (Enter to send)" rows="2"></textarea>
+          <button id="followup-send-btn" class="followup-send-btn">Send</button>
+        </div>
+      </div>
+
+      <p id="results-status" class="status"></p>
+      <button id="back-btn" class="secondary-btn">Ask Another Question</button>
+    </div>
   </div>
 
   <script src="popup.js"></script>

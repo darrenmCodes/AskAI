@@ -5,10 +5,12 @@
 }
 
 body {
-  width: 360px;
+  width: 420px;
+  max-height: 600px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: #1a1a2e;
   color: #eee;
+  overflow-y: auto;
 }
 
 .container {
@@ -32,6 +34,11 @@ h1 {
   margin-bottom: 16px;
 }
 
+.hidden {
+  display: none !important;
+}
+
+/* Ask view */
 .services {
   display: flex;
   gap: 12px;
@@ -91,10 +98,235 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.secondary-btn {
+  background: #333;
+  margin-top: 10px;
+}
+
+.secondary-btn:hover {
+  background: #444;
+}
+
 .status {
   margin-top: 10px;
   font-size: 12px;
   text-align: center;
   color: #10a37f;
   min-height: 16px;
+}
+
+/* Consensus model picker */
+.consensus-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.consensus-row label {
+  font-size: 13px;
+  color: #aaa;
+}
+
+.consensus-row select {
+  flex: 1;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #16213e;
+  color: #eee;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.consensus-row select:focus {
+  outline: none;
+  border-color: #4285f4;
+}
+
+/* Progress rows */
+.progress-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.progress-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #16213e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.progress-label {
+  font-weight: 600;
+  color: #eee;
+}
+
+.progress-status {
+  font-size: 12px;
+  color: #888;
+}
+
+.progress-status.done {
+  color: #10a37f;
+}
+
+.progress-status.error {
+  color: #e74c3c;
+}
+
+.progress-status.working {
+  color: #4285f4;
+}
+
+.progress-status.skipped {
+  color: #f39c12;
+}
+
+/* Skip button */
+.skip-btn {
+  width: auto;
+  margin: 0;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  background: #555;
+  border: none;
+  border-radius: 4px;
+  color: #eee;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.skip-btn:hover {
+  background: #e74c3c;
+}
+
+/* Consensus result */
+.consensus-result {
+  margin-bottom: 12px;
+}
+
+.consensus-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.consensus-result h3 {
+  font-size: 14px;
+  margin-bottom: 0;
+  color: #ddd;
+}
+
+/* Copy button */
+.copy-btn {
+  width: auto;
+  margin: 0;
+  padding: 3px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  background: #333;
+  border: none;
+  border-radius: 4px;
+  color: #ccc;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.copy-btn:hover {
+  background: #4285f4;
+  color: #fff;
+}
+
+/* Follow-up section */
+.followup-section {
+  margin-bottom: 12px;
+}
+
+.followup-section h3 {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #ddd;
+}
+
+.followup-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.followup-btn {
+  width: 100%;
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 400;
+  background: #16213e;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #ccc;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, color 0.15s;
+  white-space: normal;
+  line-height: 1.4;
+}
+
+.followup-btn:hover {
+  border-color: #4285f4;
+  color: #fff;
+}
+
+.followup-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.followup-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.followup-input-row textarea {
+  flex: 1;
+  font-size: 13px;
+  padding: 8px 10px;
+}
+
+.followup-send-btn {
+  width: auto;
+  margin: 0;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #10a37f, #4285f4);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.consensus-text {
+  padding: 12px;
+  background: #16213e;
+  border: 1px solid #10a37f;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #ccc;
+  max-height: 300px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
