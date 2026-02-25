@@ -1,4 +1,14 @@
 // Content script for Claude (claude.ai)
+
+// Selector tiers — tried in order. First match wins.
+// Keeps working if Claude.ai changes their DOM again.
+const RESPONSE_SELECTORS = [
+  '[data-is-streaming] .standard-markdown',           // 2025+ primary
+  '.font-claude-message',                              // legacy
+  'div.grid-cols-1 > div .prose',                      // legacy
+  '[class*="Message"] [class*="markdown"]',            // legacy
+];
+
 (async function () {
   const data = await chrome.storage.local.get(["askai_question", "askai_consensus"]);
   const question = data.askai_question;
@@ -46,18 +56,36 @@
   }
 })();
 
+// Try each selector tier until one matches, return the last element matched.
+function findLastResponse() {
+  for (const sel of RESPONSE_SELECTORS) {
+    const els = document.querySelectorAll(sel);
+    if (els.length > 0) return els[els.length - 1];
+  }
+  return null;
+}
+
 async function scrapeResponse() {
   await sleep(3000);
   let lastText = "";
   let stableCount = 0;
+  let noMatchRuns = 0;
 
   for (let i = 0; i < 120; i++) {
     await sleep(2000);
-    const messages = document.querySelectorAll(
-      '.font-claude-message, div.grid-cols-1 > div .prose, [class*="Message"] [class*="markdown"]'
-    );
-    const lastMsg = messages[messages.length - 1];
-    if (!lastMsg) continue;
+
+    const lastMsg = findLastResponse();
+
+    // If no selector matched at all, track consecutive misses.
+    // After 30 misses (60 s) give up early instead of waiting the full 4 min.
+    if (!lastMsg) {
+      noMatchRuns++;
+      if (noMatchRuns >= 30) {
+        return lastText || "Response could not be captured (no matching elements).";
+      }
+      continue;
+    }
+    noMatchRuns = 0;
 
     const text = lastMsg.innerText.trim();
     if (text && text === lastText) {
